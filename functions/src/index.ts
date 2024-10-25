@@ -7,6 +7,8 @@ import axios from 'axios';
 
 import FlowLink from './types';
 import config from './config';
+import { onRequest } from 'firebase-functions/https';
+import { onTaskDispatched } from 'firebase-functions/tasks';
 
 const {
   projectID,
@@ -27,13 +29,13 @@ const app = express();
 admin.initializeApp();
 
 // Set up Firebase Cloud Functions
-exports.api = functions.https.onRequest(app);
+exports['ext-firebase-flow-links-api'] = onRequest(app);
 
 // FlowLinks domain name
 const hostname = `${projectID}-${domainPostfix}.web.app`;
 
 // Initializate extension
-exports.initialize = functions.tasks.taskQueue().onDispatch(async () => {
+exports.initialize = onTaskDispatched(async () => {
   const { getExtensions } = await import('firebase-admin/extensions');
   const { FirebaseService } = await import('./firebase-service');
 

@@ -63,16 +63,14 @@
 
   <body>
     <img id="status" src="{{statusImage}}" />
-    <a href="https://extensions.dev/extensions/jauntybrain/firebase-flow-links">
-      <img id="fl-powered" src="{{flPoweredImage}}" />
-    </a>
+
   </body>
 
   <script>
     if ('{{redirectToStore}}' == 'true') {
       var result = detect.parse(navigator.userAgent);
       if (result.os.family === 'iOS') {
-        window.location.href = 'https://apps.apple.com/us/app/{{appStoreID}}';
+        window.location.href = 'https://apps.apple.com/gt/app/{{appStoreID}}';
       } else if (result.os.family.includes('Android')) {
         if ('{{androidScheme}}' != 'false') {
           const fallbackUrl = encodeURIComponent(
